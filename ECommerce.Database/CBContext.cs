@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Database
 {
-    class CBContext : DbContext
+    public class CBContext :DbContext
     {
-        public CBContext():base("ECommerce")
+        public CBContext():base("bazar")
         {
-
+            
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product>  Products{get;set;}
+
 
         
     }

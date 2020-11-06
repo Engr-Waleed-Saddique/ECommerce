@@ -1,9 +1,9 @@
-﻿namespace ECommerce.Database.Migrations
+namespace ECommerce.Database.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class intialized : DbMigration
+    public partial class intialize : DbMigration
     {
         public override void Up()
         {
