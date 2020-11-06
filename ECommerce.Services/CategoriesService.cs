@@ -21,7 +21,26 @@ namespace ECommerce.Services
                 context.SaveChanges();
             }
         }
-        public List<Category> GetCategory()
+        public void UpdateCategory(Category category)
+        {
+            using (var context = new CBContext())
+            {
+                context.Entry(category).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+        public void DeleteCategory(int ID)
+        {
+            using (var context = new CBContext())
+            {
+                //context.Entry(category).State = System.Data.Entity.EntityState.Deleted;
+                var category = context.Categories.Find(ID);
+                context.Categories.Remove(category);
+
+                context.SaveChanges();
+            }
+        }
+        public List<Category> GetCategories()
         {
             using (var context = new CBContext())
             {
@@ -29,5 +48,16 @@ namespace ECommerce.Services
                 return context.Categories.ToList();
             }
         }
+
+        public Category GetCategory(int ID)
+        {
+            using (var context = new CBContext())
+            {
+
+                return context.Categories.Find(ID);
+
+            }
+        }
     }
+
 }
