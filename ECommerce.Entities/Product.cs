@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Entities
 {
-    public class Class1
+    public class Product:BaseEntity
     {
+        public decimal Price { get; set; }
+        public Category Category { get; set; }
 
     }
 }
+
