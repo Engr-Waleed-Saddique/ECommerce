@@ -1,4 +1,5 @@
-﻿using ECommerce.Services;
+﻿using ECommerce.Entities;
+using ECommerce.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,26 @@ namespace ECommerce.Web.Controllers
         {
             return View();
         }
-        public ActionResult ProductTable()
+        public ActionResult ProductTable(string search)
         {
             var products = productService.GetProducts();
-            return View(products);
+            if (!string.IsNullOrEmpty(search))
+            {
+                products = products.Where(p => p.Name.ToLower().Contains(search.ToLower())).ToList();
+            }
+            return PartialView(products);
+        }
+
+
+        public ActionResult Create()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult Create(Product product)
+        {
+            productService.SaveProduct(product);
+            return RedirectToAction("ProductTable");
         }
     }
 }

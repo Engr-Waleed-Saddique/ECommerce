@@ -2,30 +2,56 @@
 @{
     ViewBag.Title = "ProductTable";
 }
+<div>
+    <form method="post">
+        <input id="searchTxt" name="Search" />
+        <button type="button" id="searchBtn">Search</button>
+        <button type="button" id="newBtn">New</button>
+    </form>
+</div>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name </th>
+                <th>Category </th>
+                <th>Price </th>
+                <th>Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>-</td>
+                    <td>@product.Price</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-<h2>ProductTable</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Product Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
-        {
-        <tr>
-            <td>@product.Name</td>
-            <ttd></ttd>
-            <td>@product.Price</td>
-            <td>
-                <button>Edit</button>
-                <button>Delete</button>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
 
+<script>
+    $("#searchBtn").click(function () {
+        var searchValue = $("#searchTxt").val();
+        $.ajax(
+            {
+                url: '/Product/ProductTable',
+                data: {
+                    search: searchValue
+                }
+            }).done(function (response) {
+                $("#tableContainer").html(response);
+
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+    });
+</script>
