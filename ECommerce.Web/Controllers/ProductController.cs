@@ -37,5 +37,26 @@ namespace ECommerce.Web.Controllers
             productService.SaveProduct(product);
             return RedirectToAction("ProductTable");
         }
+
+
+        public ActionResult Edit(int ID)
+        {
+            var product = productService.GetProduct(ID);
+            return PartialView(product);
+
+        }
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            productService.UpdateProduct(product);
+            return RedirectToAction("ProductTable");
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int ID)
+        {
+            productService.DeleteProduct(ID);
+            return RedirectToAction("ProductTable");
+        }
     }
 }
