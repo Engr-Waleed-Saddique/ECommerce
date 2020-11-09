@@ -8,7 +8,7 @@ namespace ECommerce.Entities
 {
     public class Category:BaseEntity
     {
-        
+        public string ImageURL { get; set; }
         List<Product> Products { get; set; }
 
     }

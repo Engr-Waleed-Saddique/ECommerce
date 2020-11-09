@@ -1,5 +1,6 @@
 ﻿using ECommerce.Entities;
 using ECommerce.Services;
+using ECommerce.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +30,24 @@ namespace ECommerce.Web.Controllers
 
         public ActionResult Create()
         {
-            return PartialView();
+            CategoriesService categoriesService = new CategoriesService();
+            var categories = categoriesService.GetCategories();
+            return PartialView(categories);
         }
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(NewCategoryViewModel model)
         {
-            productService.SaveProduct(product);
+            CategoriesService categoryService = new CategoriesService();
+            var newProduct = new Product();
+            newProduct.Name = model.Name;
+            newProduct.Description = model.Description;
+            newProduct.Price = model.Price;
+            newProduct.Category = categoryService.GetCategory(model.CategoryID);
+            //newProduct.CategoryID = model.CategoryID;
+            //if we are doing large projects then we have to use above line that is commented.For this we have to add also one more attrbute in Product class
+            // with name CategoryID and entity framework replace The existing cloumn name with this and make this as Foriegn key.We can use this to reduce the
+            // number of database calls.
+            productService.SaveProduct(newProduct);
             return RedirectToAction("ProductTable");
         }
 

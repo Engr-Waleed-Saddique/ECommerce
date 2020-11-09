@@ -4,13 +4,19 @@
 }
 <div>
     <form method="post">
-        <input id="searchTxt" name="Search" />
-        <button type="button" id="searchBtn">Search</button>
-        <button type="button" id="newBtn">New</button>
+        <div class="row">
+            <div class="col-9">
+            <input class="form-control mb-2" id="searchTxt" name="Search" />
+            </div>
+            <div class="col-3">
+            <button type="button" id="searchBtn">Search</button>
+            <button type="button" id="newBtn">New</button>
+            </div>
+        </div>
     </form>
 </div>
 <div>
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Product Name </th>
@@ -24,7 +30,7 @@
             {
                 <tr>
                     <td>@product.Name</td>
-                    <td>-</td>
+                    <td>@product.Category.Name</td>
                     <td>@product.Price</td>
                     <td>
                         <button class="editBtn" data-id="@product.ID">Edit</button>

@@ -1,6 +1,7 @@
-﻿
+﻿@model ECommerce.Web.ViewModels.HomeViewModels
 @{
     ViewBag.Title = "Home";
+    var firstCategory = Model.Categories.Where(p=>p.ImageURL!=null).First();
 }
 <!-- SLIDER -->
 <div class="rev_slider_wrapper fullwidthbanner-container">
@@ -189,9 +190,9 @@
                     <div class="item data-effect-item">
                         <div class="inner">
                             <div class="thumb">
-                                <img src="~/Content/images/image-box/imgbox-1-375x500.jpg" alt="Image">
+                                <img src="@firstCategory.ImageURL" alt="Image">
                                 <div class="elm-btn">
-                                    <a href="#" class="themesflat-button bg-white width-150">For Men’s</a>
+                                    <a href="#" class="themesflat-button bg-white width-150">@firstCategory.Name</a>
                                 </div>
                                 <div class="overlay-effect bg-color-1"></div>
                             </div>
