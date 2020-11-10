@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using ECommerce.Entities;
+using System.Dynamic;
 
 namespace ECommerce.Services
 {
@@ -45,7 +46,16 @@ namespace ECommerce.Services
             using (var context = new CBContext())
             {
 
-                return context.Categories.ToList();
+                return context.Categories.Include("Products").ToList();
+            }
+        }
+        public List<Category> GetFeaturedCategories()
+        {
+            using (var context = new CBContext())
+            {
+
+                return context.Categories.Where(x=>x.isFeatured&&x.ImageURL!=null).ToList();
+
             }
         }
 

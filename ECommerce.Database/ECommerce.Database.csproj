@@ -59,6 +59,18 @@
     <Compile Include="Migrations\202011081510564_ImageUrlAdded.Designer.cs">
       <DependentUpon>202011081510564_ImageUrlAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011100705063_addedisfeatured.cs" />
+    <Compile Include="Migrations\202011100705063_addedisfeatured.Designer.cs">
+      <DependentUpon>202011100705063_addedisfeatured.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011101158577_ListProductAsPublic.cs" />
+    <Compile Include="Migrations\202011101158577_ListProductAsPublic.Designer.cs">
+      <DependentUpon>202011101158577_ListProductAsPublic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011101559528_CategoryIdAdded.cs" />
+    <Compile Include="Migrations\202011101559528_CategoryIdAdded.Designer.cs">
+      <DependentUpon>202011101559528_CategoryIdAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,6 +90,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011081510564_ImageUrlAdded.resx">
       <DependentUpon>202011081510564_ImageUrlAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011100705063_addedisfeatured.resx">
+      <DependentUpon>202011100705063_addedisfeatured.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011101158577_ListProductAsPublic.resx">
+      <DependentUpon>202011101158577_ListProductAsPublic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011101559528_CategoryIdAdded.resx">
+      <DependentUpon>202011101559528_CategoryIdAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

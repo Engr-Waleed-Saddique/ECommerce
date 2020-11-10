@@ -1,0 +1,129 @@
+﻿@model List<Category>
+@{
+    ViewBag.Title = "Categories";
+}
+
+<div>
+    <form method="post">
+        <div class="row">
+            <div class="col-9">
+                <input class="form-control mb-2" id="searchTxt" name="Search" />
+            </div>
+            <div class="col-3">
+                <button type="button" id="searchBtn">Search</button>
+                <button type="button" id="newBtn">New</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Category Name </th>
+                <th>Category Description </th>
+                <th>Is Featured? </th>
+                <th>No Of Products </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td>@category.isFeatured</td>
+                    <td>@category.Products.Count</td>
+                    <td>
+                        <button class="editBtn" data-id="@category.ID">Edit</button>
+                        <button class="deleteBtn" data-id="@category.ID">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $("#searchBtn").click(function () {
+        var searchValue = $("#searchTxt").val();
+        $.ajax(
+            {
+                url: '/Category/CategoryTable',
+                data: {
+                    search: searchValue
+                }
+            }).done(function (response) {
+                $("#tableContainer").html(response);
+
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+    });
+
+    $("#newBtn").click(function () {
+        $.ajax(
+            {
+                url: '/Category/Create',
+            }).done(function (response) {
+                $("#actionContainer").html(response);
+                focusAction();
+
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+    });
+
+    $(".editBtn").click(function () {
+        $.ajax(
+            {
+                url: '/Category/Edit',
+                data: {
+                    ID: $(this).attr('data-id')
+                }
+            }).done(function (response) {
+                $("#actionContainer").html(response);
+                focusAction();
+                
+
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+    });
+
+    $(".deleteBtn").click(function () {
+        var confirmDelete = confirm("Are you sure you want to Delete Product");
+        if (confirmDelete) {
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/Category/Delete',
+                    data: {
+                        ID: $(this).attr('data-id')
+                    }
+                }).done(function (response) {
+                    $("#tableContainer").html(response);
+
+                }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Fail");
+                });
+        }
+        else {
+
+        }
+
+
+    });
+    function focusAction() {
+        $('html,body').animate({
+            scrollTop: $("#actionContainer").offset().top-100
+        }, 1000);
+    }
+</script>
