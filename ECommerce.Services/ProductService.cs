@@ -78,7 +78,19 @@ namespace ECommerce.Services
             using (var context = new CBContext())
             {
 
-                return context.Products.Find(ID);
+                //return context.Products.Find(ID);
+                //If we want the record of category of related product then we write the below linq.
+                return context.Products.Where(product => product.ID == ID).Include(product => product.Category).FirstOrDefault();
+
+            }
+        }
+
+        public List<Product> GetProducts(List<int> IDs)
+        {
+            using (var context = new CBContext())
+            {
+
+                return context.Products.Where(product => IDs.Contains(product.ID)).ToList();
 
             }
         }

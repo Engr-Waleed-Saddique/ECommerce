@@ -35,6 +35,7 @@
                     <td>
                         <button class="editBtn" data-id="@product.ID">Edit</button>
                         <button class="deleteBtn" data-id="@product.ID">Delete</button>
+                        <button class="addToCart" data-id="@product.ID">Add To Cart</button>
                     </td>
                 </tr>
             }
@@ -91,26 +92,65 @@
     });
 
     $(".deleteBtn").click(function () {
-        var confirmDelete = confirm("Are you sure you want to Delete Product");
-        if (confirmDelete) {
-            $.ajax(
-                {
-                    type: 'POST',
-                    url: '/Product/Delete',
-                    data: {
-                        ID: $(this).attr('data-id')
-                    }
-                }).done(function (response) {
-                    $("#tableContainer").html(response);
+        //Below is the sweet alert modal.
+        swal({
+            title: "Confirm",
+            text: "Are you sure you want to Delete Product?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            url: '/Product/Delete',
+                            data: {
+                                ID: $(this).attr('data-id')
+                            }
+                        }).done(function (response) {
+                            $("#tableContainer").html(response);
+                            swal("Record deleted Successfully.", {
+                                icon: "success",
+                            });
 
-                }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("Fail");
-                });
-        }
-        else {
+                        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Fail");
+                        });
+                }
+            });
 
-        }
-        
 
+
+
+        //Below is the Jquery modal
+        //var confirmDelete = confirm("Are you sure you want to Delete Product");
+        //if (confirmDelete) {
+        //    $.ajax(
+        //        {
+        //            type: 'POST',
+        //            url: '/Product/Delete',
+        //            data: {
+        //                ID: $(this).attr('data-id')
+        //            }
+        //        }).done(function (response) {
+        //            $("#tableContainer").html(response);
+
+        //        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        //            alert("Fail");
+        //        });
+        //}
+        //else {
+
+        //}
+    });
+    var products = [];
+    $(".addToCart").click(function () {
+        var ProductId = $(this).attr("data-id");
+        products.push(ProductId);
+        //We can set cookie using jquery function $.cookie('cookie name','value of cookie'). 
+        $.cookie('CartProducts', products.join('-'), { path:'/' }); 
+        alert("Product Added To Cart");
     });
 </script>
