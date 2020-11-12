@@ -53,7 +53,7 @@
         var searchValue = $("#searchTxt").val();
         $.ajax(
             {
-                url: '/Category/CategoryTable',
+                url:'@Url.Action("CategoryTable","Category")',/*'/Category/CategoryTable',*/
                 data: {
                     search: searchValue
                 }
@@ -69,7 +69,7 @@
     $("#newBtn").click(function () {
         $.ajax(
             {
-                url: '/Category/Create',
+                url:'@Url.Action("Create","Category")', /*'/Category/Create',*/
             }).done(function (response) {
                 $("#actionContainer").html(response);
                 focusAction();
@@ -83,14 +83,14 @@
     $(".editBtn").click(function () {
         $.ajax(
             {
-                url: '/Category/Edit',
+                url:'@Url.Action("Edit","Category")', /*'/Category/Edit',*/
                 data: {
                     ID: $(this).attr('data-id')
                 }
             }).done(function (response) {
                 $("#actionContainer").html(response);
                 focusAction();
-                
+
 
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
@@ -104,7 +104,7 @@
             $.ajax(
                 {
                     type: 'POST',
-                    url: '/Category/Delete',
+                    url: '@Url.Action("Delete","Category")',/*'/Category/Delete',*/
                     data: {
                         ID: $(this).attr('data-id')
                     }

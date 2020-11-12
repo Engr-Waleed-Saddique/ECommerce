@@ -49,7 +49,7 @@
         var searchValue = $("#searchTxt").val();
         $.ajax(
             {
-                url: '/Product/ProductTable',
+                url:'@Url.Action("ProductTable","Product")', /*'/Product/ProductTable',*/
                 data: {
                     search: searchValue
                 }
@@ -65,7 +65,7 @@
     $("#newBtn").click(function () {
         $.ajax(
             {
-                url: '/Product/Create',
+                url:'@Url.Action("Create","Product")', /*'/Product/Create',*/
             }).done(function (response) {
                 $("#actionContainer").html(response);
 
@@ -78,7 +78,7 @@
     $(".editBtn").click(function () {
         $.ajax(
             {
-                url: '/Product/Edit',
+                url:'@Url.Action("Edit","Product")', /*'/Product/Edit',*/
                 data: {
                     ID: $(this).attr('data-id')
                 }
@@ -105,7 +105,7 @@
                     $.ajax(
                         {
                             type: 'POST',
-                            url: '/Product/Delete',
+                            url:'@Url.Action("Delete","Product")', /*'/Product/Delete',*/
                             data: {
                                 ID: $(this).attr('data-id')
                             }
@@ -149,8 +149,8 @@
     $(".addToCart").click(function () {
         var ProductId = $(this).attr("data-id");
         products.push(ProductId);
-        //We can set cookie using jquery function $.cookie('cookie name','value of cookie'). 
-        $.cookie('CartProducts', products.join('-'), { path:'/' }); 
+        //We can set cookie using jquery function $.cookie('cookie name','value of cookie').
+        $.cookie('CartProducts', products.join('-'), { path:'/' });
         alert("Product Added To Cart");
     });
 </script>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Database
 {
-    public class CBContext :DbContext
+    public class CBContext :DbContext,IDisposable
     {
         public CBContext():base("bazar")
         {
@@ -16,8 +16,6 @@ namespace ECommerce.Database
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product>  Products{get;set;}
-
-
-        
+        public DbSet<Config> Configurations { get; set; }
     }
 }

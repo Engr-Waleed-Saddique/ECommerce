@@ -71,6 +71,10 @@
     <Compile Include="Migrations\202011101559528_CategoryIdAdded.Designer.cs">
       <DependentUpon>202011101559528_CategoryIdAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011111550100_configurationTable.cs" />
+    <Compile Include="Migrations\202011111550100_configurationTable.Designer.cs">
+      <DependentUpon>202011111550100_configurationTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -99,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011101559528_CategoryIdAdded.resx">
       <DependentUpon>202011101559528_CategoryIdAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011111550100_configurationTable.resx">
+      <DependentUpon>202011111550100_configurationTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
