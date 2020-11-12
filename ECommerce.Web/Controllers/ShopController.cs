@@ -10,7 +10,7 @@ namespace ECommerce.Web.Controllers
 {
     public class ShopController : Controller
     {
-        ProductService productService = new ProductService();
+        //ProductService productService = new ProductService();
         public ActionResult Checkout()
         {
             CheckoutViewModel model = new CheckoutViewModel();
@@ -23,7 +23,7 @@ namespace ECommerce.Web.Controllers
                 //List<int> pIDs = ids.Select(x => int.Parse(x)).ToList();
                 // We can do above three line code in one line code which is below.
                 model.CartProductIDs = CartProductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
-                model.CartProducts = productService.GetProducts(model.CartProductIDs);
+                model.CartProducts = ProductService.Instance.GetProducts(model.CartProductIDs);
 
 
             }

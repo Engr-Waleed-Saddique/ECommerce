@@ -10,12 +10,12 @@ namespace ECommerce.Web.Controllers
 {
     public class HomeController : Controller
     {
-        CategoriesService categoryService = new CategoriesService();
+        //CategoriesService categoryService = new CategoriesService();
         // GET: Home
         public ActionResult Index()
         {
             HomeViewModels model = new HomeViewModels();
-            model.FeaturedCategories = categoryService.GetFeaturedCategories();
+            model.FeaturedCategories = CategoriesService.Instance.GetFeaturedCategories();
             return View(model);
 
         }
