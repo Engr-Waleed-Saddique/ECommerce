@@ -1,7 +1,9 @@
-﻿@model List<Product>
+﻿@model ProductSearchViewModel
 @{
     ViewBag.Title = "ProductTable";
 }
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <div>
     <form method="post">
         <div class="row">
@@ -16,7 +18,7 @@
     </form>
 </div>
 <div>
-    <table class="table table-striped">
+    <table id="ProductsTable" class="table table-striped">
         <thead>
             <tr>
                 <th>Product Name </th>
@@ -26,25 +28,61 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in Model)
+            @if (Model.Products != null && Model.Products.Count > 0)
+            {
+
+                foreach (var product in Model.Products) {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Category.Name</td>
+                        <td>@product.Price</td>
+                        <td>
+                            <button class="editBtn" data-id="@product.ID">Edit</button>
+                            <button class="deleteBtn" data-id="@product.ID">Delete</button>
+                            <button class="addToCart" data-id="@product.ID">Add To Cart</button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <td>@product.Name</td>
-                    <td>@product.Category.Name</td>
-                    <td>@product.Price</td>
-                    <td>
-                        <button class="editBtn" data-id="@product.ID">Edit</button>
-                        <button class="deleteBtn" data-id="@product.ID">Delete</button>
-                        <button class="addToCart" data-id="@product.ID">Add To Cart</button>
-                    </td>
+                    <td class="text-danger">No Products Found</td>
                 </tr>
             }
         </tbody>
     </table>
+    <div>
+        @*@if(Model.PageNo!=1)
+        {
+        <button class="pageButtons" data-pageNo="@(Model.PageNo-1)">Previous</button>
+        }
+        <button class="pageButtons" data-pageNo="@(Model.PageNo+1)">Next</button>*@
+
+    </div>
 </div>
 
 
 <script>
+    $('#ProductsTable').DataTable();
+
+    $(".pageButtons").click(function () {
+        $.ajax(
+            {
+                url: '@Url.Action("ProductTable", "Product")', /*'/Product/ProductTable',*/
+                data:
+                {
+                    pageNo: $(this).attr("data-pageNo")
+
+                }
+            }).done(function (response) {
+                $("#tableContainer").html(response);
+
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+    });
     $("#searchBtn").click(function () {
         var searchValue = $("#searchTxt").val();
         $.ajax(
@@ -61,7 +99,6 @@
             });
 
     });
-
     $("#newBtn").click(function () {
         $.ajax(
             {

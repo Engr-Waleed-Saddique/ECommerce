@@ -18,14 +18,33 @@ namespace ECommerce.Web.Controllers
         {
             return View();
         }
-        public ActionResult ProductTable(string search)
+        public ActionResult ProductTable(string search,int? pageNo)
         {
-            var products = ProductService.Instance.GetProducts();
+            ProductSearchViewModel model = new ProductSearchViewModel();
+            model.PageNo= pageNo.HasValue ?pageNo.Value>0?pageNo.Value : 1:1;
+            //Similar to above one line of code
+            //if(pageNo.HasValue)
+            //{
+            //    if(pageNo.Value>0)
+            //    {
+            //        model.PageNo = pageNo.Value;
+            //    }
+            //    else
+            //    {
+            //        model.PageNo = 1;
+            //    }
+            //}
+            //else
+            //{
+            //    model.PageNo = 1;
+            //}
+            model.Products= ProductService.Instance.GetProducts(model.PageNo);
             if (!string.IsNullOrEmpty(search))
             {
-                products = products.Where(p => p.Name.ToLower().Contains(search.ToLower())).ToList();
+                model.SearchTerm = search;
+                model.Products = model.Products.Where(p => p.Name.ToLower().Contains(search.ToLower())).ToList();
             }
-            return PartialView(products);
+            return PartialView(model);
         }
 
 

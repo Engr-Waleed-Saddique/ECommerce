@@ -61,7 +61,7 @@ namespace ECommerce.Services
                 context.SaveChanges();
             }
         }
-        public List<Product> GetProducts()
+        public List<Product> GetProducts(int pageNo)
         {
             //When we intialize the Category as virtual in entities. Entity Framework will genrate the query but didn,t execute it.It is executed when we access
             // the value of Category. Example in Product Table we are using @product.Category.Name now the query is called and if we use the below code
@@ -78,8 +78,11 @@ namespace ECommerce.Services
             //var context = new CBContext();
             //return context.Products.ToList();
 
+
+            //int pageSize = 10;
             using(var context = new CBContext())
             {
+                //return context.Products.OrderBy(x=>x.ID).Skip((pageNo-1)*pageSize).Take(pageSize).Include(x=>x.Category).ToList();
                 return context.Products.Include(x=>x.Category).ToList();
             }
 
