@@ -12,13 +12,13 @@ namespace ECommerce.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoriesService categoryService = new CategoriesService();
-        ProductService productService = new ProductService();
+        //CategoriesService categoryService = new CategoriesService();
+        //ProductService productService = new ProductService();
 
 
         public ActionResult Index()
         {
-            var categories=categoryService.GetCategories();
+            var categories=CategoriesService.Instance.GetCategories();
             return View(categories);
         }
         [HttpGet]
@@ -29,13 +29,13 @@ namespace ECommerce.Web.Controllers
         [HttpPost]
         public ActionResult Create(Category category)
         {
-            categoryService.SaveCategory(category);
+            CategoriesService.Instance.SaveCategory(category);
             return RedirectToAction("CategoryTable");
         }
 
         public ActionResult CategoryTable(string search)
         {
-            var categories = categoryService.GetCategories();
+            var categories = CategoriesService.Instance.GetCategories();
 
             if (!string.IsNullOrEmpty(search))
             {
@@ -47,13 +47,13 @@ namespace ECommerce.Web.Controllers
         [HttpGet]
         public ActionResult Edit(int ID)
         {
-            var category=categoryService.GetCategory(ID);
+            var category=CategoriesService.Instance.GetCategory(ID);
             return PartialView(category);
         }
         [HttpPost]
         public ActionResult Edit(Category category)
         {
-            categoryService.UpdateCategory(category);
+            CategoriesService.Instance.UpdateCategory(category);
             return RedirectToAction("CategoryTable");
         }
 
@@ -66,7 +66,7 @@ namespace ECommerce.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int ID)
         {
-            categoryService.DeleteCategory(ID);
+            CategoriesService.Instance.DeleteCategory(ID);
             return RedirectToAction("CategoryTable");
         }
     }

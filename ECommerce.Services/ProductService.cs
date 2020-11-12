@@ -13,6 +13,22 @@ namespace ECommerce.Services
 {
     public class ProductService
     {
+        #region Singleton
+        public static ProductService Instance
+        {
+            get
+            {
+                if (instance == null) instance = new ProductService();
+                return instance;
+            }
+        }
+        private static ProductService instance { get; set; }
+        private ProductService()
+        {
+
+        }
+        #endregion
+
         public void SaveProduct(Product product)
         {
             using (var context= new CBContext())
