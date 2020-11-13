@@ -7,12 +7,13 @@
 <div>
     <form method="post">
         <div class="row">
-            <div class="col-9">
+            <div class="col-6">
             <input class="form-control mb-2" id="searchTxt" name="Search" />
             </div>
-            <div class="col-3">
-            <button type="button" id="searchBtn">Search</button>
-            <button type="button" id="newBtn">New</button>
+            <div class="col-6">
+                <button type="button" id="searchBtn">Search</button>
+                <button type="button" id="resetBtn">Reset</button>
+                <button type="button" id="newBtn">New</button>
             </div>
         </div>
     </form>
@@ -21,10 +22,10 @@
     <table id="ProductsTable" class="table table-striped">
         <thead>
             <tr>
-                <th>Product Name </th>
-                <th>Category </th>
-                <th>Price </th>
-                <th>Actions </th>
+                <th class="font-weight-bold">Product Name </th>
+                <th class="font-weight-bold">Category </th>
+                <th class="font-weight-bold">Price </th>
+                <th class="font-weight-bold">Actions </th>
             </tr>
         </thead>
         <tbody>
@@ -99,12 +100,31 @@
             });
 
     });
+
+    $("#resetBtn").click(function () {
+        var searchValue = "";
+        $.ajax(
+            {
+                url:'@Url.Action("ProductTable","Product")', /*'/Product/ProductTable',*/
+                data: {
+                    search: searchValue
+                }
+            }).done(function (response) {
+                $("#tableContainer").html(response);
+
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+    });
+
     $("#newBtn").click(function () {
         $.ajax(
             {
                 url:'@Url.Action("Create","Product")', /*'/Product/Create',*/
             }).done(function (response) {
                 $("#actionContainer").html(response);
+                focusAction("actionContainer");
 
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
@@ -121,6 +141,7 @@
                 }
             }).done(function (response) {
                 $("#actionContainer").html(response);
+                focusAction("actionContainer");
 
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");

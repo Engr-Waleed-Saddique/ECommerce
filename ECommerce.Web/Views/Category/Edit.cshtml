@@ -27,7 +27,8 @@
         <input name="isFeatured" type="radio" value="true" @trueChecked />True
         <input name="isFeatured" type="radio" value="false" @falseChecked />False
     </div>
-        <button id="updateBtn" type="button">Update</button>
+        <button id="updateBtn" class="btn btn-danger" type="button">Update</button>
+        <button id="cancelBtn" class="btn btn-danger" type="button">Cancel</button>
 </form>
 <script>
     $("#imageUpload").change(function () {
@@ -69,10 +70,15 @@
             }).done(function (response) {
                 $("#tableContainer").html(response);
                 $("#actionContainer").html("");
+                focusAction("tableContainer");
 
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
             });
 
+    });
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+        focusAction("tableContainer");
     });
 </script>

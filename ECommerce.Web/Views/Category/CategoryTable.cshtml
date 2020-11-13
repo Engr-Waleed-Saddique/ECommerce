@@ -6,11 +6,12 @@
 <div>
     <form method="post">
         <div class="row">
-            <div class="col-9">
+            <div class="col-6">
                 <input class="form-control mb-2" id="searchTxt" name="Search" />
             </div>
-            <div class="col-3">
+            <div class="col-6">
                 <button type="button" id="searchBtn">Search</button>
+                <button type="button" id="resetBtn">Reset</button>
                 <button type="button" id="newBtn">New</button>
             </div>
         </div>
@@ -22,11 +23,11 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Category Name </th>
-                <th>Category Description </th>
-                <th>Is Featured? </th>
-                <th>No Of Products </th>
-                <th>Action</th>
+                <th class="font-weight-bold">Category Name </th>
+                <th class="font-weight-bold">Category Description </th>
+                <th class="font-weight-bold">Is Featured? </th>
+                <th class="font-weight-bold">No Of Products </th>
+                <th class="font-weight-bold">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -66,13 +67,30 @@
 
     });
 
+    $("#resetBtn").click(function () {
+        var searchValue ="";
+        $.ajax(
+            {
+                url:'@Url.Action("CategoryTable","Category")',/*'/Category/CategoryTable',*/
+                data: {
+                    search: searchValue
+                }
+            }).done(function (response) {
+                $("#tableContainer").html(response);
+
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+    });
+
     $("#newBtn").click(function () {
         $.ajax(
             {
                 url:'@Url.Action("Create","Category")', /*'/Category/Create',*/
             }).done(function (response) {
                 $("#actionContainer").html(response);
-                focusAction();
+                focusAction("actionContainer");
 
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Fail");
@@ -89,7 +107,7 @@
                 }
             }).done(function (response) {
                 $("#actionContainer").html(response);
-                focusAction();
+                focusAction("actionContainer");
 
 
             }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
@@ -121,9 +139,5 @@
 
 
     });
-    function focusAction() {
-        $('html,body').animate({
-            scrollTop: $("#actionContainer").offset().top-100
-        }, 1000);
-    }
+    
 </script>

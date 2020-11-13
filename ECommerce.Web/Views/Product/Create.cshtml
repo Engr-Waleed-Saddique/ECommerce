@@ -27,6 +27,7 @@
             <input class="form-control" name="Price" />
         </div>
         <button id="saveBtn" class="btn btn-danger" type="button">Save</button>
+        <button id="cancelBtn" class="btn btn-danger" type="button">Cancel</button>
 </form>
 <script>
     $("#saveBtn").click(function () {
@@ -43,5 +44,9 @@
                 alert("Fail");
             });
 
+    });
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+        focusAction("tableContainer");
     });
 </script>
