@@ -1,4 +1,4 @@
-﻿@model List<Category>
+﻿@model CategorySearchViewModel
 @{
     ViewBag.Title = "Categories";
 }
@@ -7,7 +7,7 @@
     <form method="post">
         <div class="row">
             <div class="col-6">
-                <input class="form-control mb-2" id="searchTxt" name="Search" />
+                <input class="form-control mb-2" id="searchTxt" name="Search" value="@Model.SearchTerm" />
             </div>
             <div class="col-6">
                 <button type="button" id="searchBtn">Search</button>
@@ -31,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var category in Model)
+            @foreach (var category in Model.Categories)
             {
                 <tr>
                     <td>@category.Name</td>
@@ -46,10 +46,47 @@
             }
         </tbody>
     </table>
+    <div>
+        @if (Model.Pager != null)
+        {
+            if (Model.Pager.CurrentPage > 1)
+            {
+                <button class="pageButtons" data-pageno="1">First</button>
+                <button class="pageButtons" data-pageno="@Model.Pager.CurrentPage-1">Previous</button>
+            }
+
+            for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                string activeClass = Model.Pager.CurrentPage == page ? "active bg-info" : string.Empty;
+                <button class="@activeClass pageButtons" data-pageno="@page">@page</button>
+            }
+
+            if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <button class="pageButtons" data-pageno="@Model.Pager.EndPage">Last</button>
+                <button class="pageButtons" data-pageno="@Model.Pager.CurrentPage+1">Next</button>
+            }
+        }
+    </div>
 </div>
-
-
 <script>
+    $(".pageButtons").click(function () {
+        $.ajax(
+            {
+                url: '@Url.Action("CategoryTable", "Category")', /*'/Product/ProductTable',*/
+                data:
+                {
+                    pageNo: $(this).attr("data-pageno")
+
+                }
+            }).done(function (response) {
+                $("#tableContainer").html(response);
+
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+    });
     $("#searchBtn").click(function () {
         var searchValue = $("#searchTxt").val();
         $.ajax(
@@ -139,5 +176,5 @@
 
 
     });
-    
+
 </script>

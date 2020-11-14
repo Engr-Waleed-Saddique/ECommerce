@@ -79,11 +79,11 @@ namespace ECommerce.Services
             //return context.Products.ToList();
 
 
-            //int pageSize = 10;
-            using(var context = new CBContext())
+            int pageSize = 10;
+            using (var context = new CBContext())
             {
-                //return context.Products.OrderBy(x=>x.ID).Skip((pageNo-1)*pageSize).Take(pageSize).Include(x=>x.Category).ToList();
-                return context.Products.Include(x=>x.Category).ToList();
+                return context.Products.OrderBy(x => x.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
+                //return context.Products.Include(x => x.Category).ToList();
             }
 
             //We inherit our CBContext from Idisposeable class because it we have to dispose the database object because of performance issues it is necassary,

@@ -54,23 +54,28 @@
         </tbody>
     </table>
     <div>
-        @*@if(Model.PageNo!=1)
+        @if(Model.PageNo!=1)
         {
         <button class="pageButtons" data-pageNo="@(Model.PageNo-1)">Previous</button>
         }
-        <button class="pageButtons" data-pageNo="@(Model.PageNo+1)">Next</button>*@
+        <button class="pageButtons" data-pageNo="@(Model.PageNo+1)">Next</button>
 
     </div>
 </div>
 
 
 <script>
-    var products = [];
     //We are putting edit Delete and Add to cart button click listner inside fdrawCallback method becaues we are using datatable.If we not add it inside
     // the fnDrawCallback then the click on these button will not work in pagination.
-    $('#ProductsTable').DataTable({
-        "fnDrawCallback": function (oSettings) {
-                $(".editBtn").click(function () {
+    //$('#ProductsTable').DataTable({
+    //    "fnDrawCallback": function (oSettings) {
+
+            
+    //    }
+    //});
+
+
+    $(".editBtn").click(function () {
                 $.ajax(
                 {
                     url:'@Url.Action("Edit","Product")', /*'/Product/Edit',*/
@@ -84,48 +89,46 @@
                 }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("Fail");
                 });
-                });
-                $(".deleteBtn").click(function () {
-                    //Below is the sweet alert modal.
-                    swal({
-                        title: "Confirm",
-                        text: "Are you sure you want to Delete Product?",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                         if (willDelete) {
-                                $.ajax(
-                                {
-                                        type: 'POST',
-                                        url:'@Url.Action("Delete","Product")', /*'/Product/Delete',*/
-                                        data: {
-                                            ID: $(this).attr('data-id')
-                                        }
-                                }).done(function (response) {
-                                        $("#tableContainer").html(response);
-                                        swal("Record deleted Successfully.", {
-                                            icon: "success",
-                                        });
+    });
 
-                                }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                                        alert("Fail");
+    $(".deleteBtn").click(function () {
+            //Below is the sweet alert modal.
+            swal({
+                title: "Confirm",
+                text: "Are you sure you want to Delete Product?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                 if (willDelete) {
+                        $.ajax(
+                        {
+                                type: 'POST',
+                                url:'@Url.Action("Delete","Product")', /*'/Product/Delete',*/
+                                data: {
+                                    ID: $(this).attr('data-id')
+                                }
+                        }).done(function (response) {
+                                $("#tableContainer").html(response);
+                                swal("Record deleted Successfully.", {
+                                    icon: "success",
                                 });
-                         }
-                     });
 
-                });
-                $(".addToCart").click(function () {
+                        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert("Fail");
+                        });
+                 }
+             });
+    });
+    var products = [];
+    $(".addToCart").click(function () {
                     var ProductId = $(this).attr("data-id");
                     products.push(ProductId);
                     //We can set cookie using jquery function $.cookie('cookie name','value of cookie').
                     $.cookie('CartProducts', products.join('-'), { path: '/' });
                     alert("Product Added To Cart");
-                });
-        }
     });
-
     $(".pageButtons").click(function () {
         $.ajax(
             {
