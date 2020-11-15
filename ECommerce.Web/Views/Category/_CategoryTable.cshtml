@@ -64,7 +64,7 @@
             if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
             {
                 <button class="pageButtons" data-pageno="@Model.Pager.EndPage">Last</button>
-                <button class="pageButtons" data-pageno="@Model.Pager.CurrentPage+1">Next</button>
+                <button class="pageButtons" data-pageno="@(Model.Pager.CurrentPage+1)">Next</button>
             }
         }
     </div>
@@ -76,7 +76,8 @@
                 url: '@Url.Action("CategoryTable", "Category")', /*'/Product/ProductTable',*/
                 data:
                 {
-                    pageNo: $(this).attr("data-pageno")
+                    pageNo: $(this).attr("data-pageno"),
+                    search:'@Model.SearchTerm'
 
                 }
             }).done(function (response) {
@@ -140,7 +141,8 @@
             {
                 url:'@Url.Action("Edit","Category")', /*'/Category/Edit',*/
                 data: {
-                    ID: $(this).attr('data-id')
+                    ID: $(this).attr('data-id'),
+                    search: $("#searchTxt").val()
                 }
             }).done(function (response) {
                 $("#actionContainer").html(response);
@@ -176,5 +178,4 @@
 
 
     });
-
 </script>

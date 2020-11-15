@@ -6,7 +6,7 @@
 <h2>Add New Category</h2>
 <form id="createCategory">
     <div class="form-group">
-        <label>Name</label>
+        <label>Name<span class="text-danger">*</span></label>
         <input class="form-control" name="Name" />
         <br />
     </div>
@@ -29,6 +29,31 @@
     <button id="cancelBtn" class="btn btn-danger" type="button">Cancel</button>
 </form>
 <script>
+    //To use validate in Jquery we have to link of jquery validate library.
+    $('#createCategory').validate({
+        rules: {
+            Name: {
+                required: true,
+                minlength: 5,
+                maxlength: 50
+            },
+            Description: {
+                maxlength: 500
+            }
+        },
+        messages:
+        {
+            Name: {
+                required: 'Name is required',
+                minlength: 'Minimum length is 5',
+                maxlength: 'Maximum length is 50'
+            },
+            Description: {
+                maxlength: 'Max length is 500'
+            }
+        }
+    });
+
     $("#imageUpload").change(function () {
         var element = this;
         var formData = new FormData();
@@ -61,19 +86,36 @@
     });
 
     $("#saveBtn").click(function () {
-        $.ajax(
-            {
-                type: 'post',
-                url: '/Category/Create',
-                data: $("#createCategory").serialize()
-            }).done(function (response) {
-                $("#tableContainer").html(response);
-                $("#actionContainer").html("");
-                focusAction("tableContainer");
+        if ($("#createCategory").valid()) {
+            $.ajax(
+                {
+                    type: 'post',
+                    url: '/Category/Create',
+                    data: $("#createCategory").serialize()
+                }).done(function (response) {
+                    $("#tableContainer").html(response);
+                    $("#actionContainer").html("");
+                    focusAction("tableContainer");
 
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Fail");
+                }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    swal({
+                        title: "Warning",
+                        text: "Please enter all required fields",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    });
+                });
+        }
+        else {
+            swal({
+                title: "Js Warning",
+                text: "Please enter all required fields",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
             });
+        }
 
     });
 

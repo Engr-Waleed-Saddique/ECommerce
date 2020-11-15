@@ -27,8 +27,15 @@ namespace ECommerce.Web.Controllers
         [HttpPost]
         public ActionResult Create(Category category)
         {
-            CategoriesService.Instance.SaveCategory(category);
-            return RedirectToAction("CategoryTable");
+            if (ModelState.IsValid)
+            {
+                CategoriesService.Instance.SaveCategory(category);
+                return RedirectToAction("CategoryTable");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(500);
+            }
         }
 
         public ActionResult CategoryTable(string search,int? pageNo)

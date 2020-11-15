@@ -16,12 +16,12 @@ namespace ECommerce.Web.ViewModels
             if (pageSize == 0)pageSize = 3;
             var totalPages=(int)Math.Ceiling((decimal)totalItems/(decimal)pageSize);
             var currentPage = page != null ? (int)page : 1;
-            var startPage = currentPage - 5;
-            var endPage = currentPage + 4;
+            var startPage = currentPage - 5; //1-5 =-4
+            var endPage = currentPage + 4; //1+4=5
             if(startPage<=0)
             {
-                endPage -= (startPage - 1);
-                startPage = 1;
+                endPage -= (startPage - 1); //5-(-4-1)=0
+                startPage = 1; //1
             }
             if(endPage>totalPages)
             {
