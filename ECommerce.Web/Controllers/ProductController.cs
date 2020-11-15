@@ -103,5 +103,12 @@ namespace ECommerce.Web.Controllers
             ProductService.Instance.DeleteProduct(ID);
             return RedirectToAction("ProductTable");
         }
+        public ActionResult Details(int ID)
+        {
+            ProductViewModel model = new ProductViewModel();
+            model.Product = ProductService.Instance.GetProduct(ID);
+            return View(model);
+        }
     }
+
 }

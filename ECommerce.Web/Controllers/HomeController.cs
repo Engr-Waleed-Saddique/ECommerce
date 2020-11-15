@@ -17,7 +17,6 @@ namespace ECommerce.Web.Controllers
             HomeViewModels model = new HomeViewModels();
             model.FeaturedCategories = CategoriesService.Instance.GetFeaturedCategories();
             return View(model);
-
         }
     }
 }
