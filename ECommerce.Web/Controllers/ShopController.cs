@@ -10,6 +10,15 @@ namespace ECommerce.Web.Controllers
 {
     public class ShopController : Controller
     {
+        public ActionResult Index(string searchTerm,int? minimumPrice,int? maximumPrice,int? categoryID,int? sortBy)
+        {
+            ShopViewModel model = new ShopViewModel();
+            model.FeaturedCategories = CategoriesService.Instance.GetFeaturedCategories();
+            model.MaximumPrice = ProductService.Instance.GetMaximumPrice();
+            model.Products = ProductService.Instance.SearchProducts(searchTerm, minimumPrice, maximumPrice, categoryID, sortBy);
+            model.SortBy = sortBy;
+            return View(model);
+        }
         //ProductService productService = new ProductService();
         public ActionResult Checkout()
         {
