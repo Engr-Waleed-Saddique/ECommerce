@@ -19,4 +19,9 @@ namespace ECommerce.Web.ViewModels
         public List<Category> FeaturedCategories { get; set; }
         public int? SortBy { get; set; }
     }
+    public class FilterProductsViewModel
+    {
+        public List<Product> Products { get; set; }   
+    }
 }
+
