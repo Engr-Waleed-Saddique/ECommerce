@@ -377,6 +377,20 @@
       });
     };
 
+
+    function showLoader() {
+
+        $(".loader").fadeIn();
+        $("#loading-overlay").delay(500).fadeIn('slow');
+
+    };
+    function hideLoader() {
+
+        $(".loader").fadeOut();
+        $("#loading-overlay").delay(500).fadeOut('slow');
+
+    };
+
     //var flatPrice = function() {
     //    if( $().slider ) {
     //        $( function() {

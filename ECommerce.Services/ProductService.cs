@@ -152,7 +152,7 @@ namespace ECommerce.Services
             using (var context = new CBContext())
             {
                 context.Entry(product).State = System.Data.Entity.EntityState.Modified;
-                 context.SaveChanges();
+                context.SaveChanges();
             }
         }
         public void DeleteProduct(int ID)

@@ -42,6 +42,15 @@ namespace ECommerce.Services
             }
             
        }
+        public int ShopPageSize()
+        {
+            using (var context = new CBContext())
+            {
+                var pageSizeConfig = context.Configurations.Find("ShopPageSize");
+                return pageSizeConfig != null ? int.Parse(pageSizeConfig.Value) : 6;
+            }
+
+        }
     }
 
 }
