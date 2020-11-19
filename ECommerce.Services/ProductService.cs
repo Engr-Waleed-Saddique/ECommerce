@@ -194,6 +194,48 @@ namespace ECommerce.Services
             //We inherit our CBContext from Idisposeable class because it we have to dispose the database object because of performance issues it is necassary,
             // when  there are many user connected with your application.
         }
+        public List<Product> GetProducts(string search, int pageNo, int pageSize)
+        {
+            
+            using (var context = new CBContext())
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                    return context.Products.Where(product => product.Name!=null&&product.Name.ToLower().Contains(search.ToLower()))
+                    .OrderBy(x => x.ID)
+                    .Skip((pageNo - 1) * pageSize)
+                    .Take(pageSize)
+                    .Include(x => x.Category)
+                    .ToList();
+                }
+                else
+                {
+                    return context.Products
+                        .OrderBy(x => x.ID)
+                        .Skip((pageNo - 1) * pageSize)
+                        .Take(pageSize)
+                        .Include(x => x.Category)
+                        .ToList();
+                }
+            }
+        }
+        public int GetProductsCount(string search)
+        {
+
+            using (var context = new CBContext())
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                    return context.Products.Where(product => product.Name != null && product.Name.ToLower().Contains(search.ToLower()))
+                    .OrderBy(x => x.ID).Count();
+                }
+                else
+                {
+                    return context.Products
+                        .OrderBy(x => x.ID).Count();
+                }
+            }
+        }
 
         public List<Product> GetProducts(int pageNo,int pageSize)
         {

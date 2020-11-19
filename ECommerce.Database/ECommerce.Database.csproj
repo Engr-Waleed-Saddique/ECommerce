@@ -83,6 +83,10 @@
     <Compile Include="Migrations\202011150705154_addedBasicValidations.Designer.cs">
       <DependentUpon>202011150705154_addedBasicValidations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011190747548_minLengthAttributeChanged.cs" />
+    <Compile Include="Migrations\202011190747548_minLengthAttributeChanged.Designer.cs">
+      <DependentUpon>202011190747548_minLengthAttributeChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011150705154_addedBasicValidations.resx">
       <DependentUpon>202011150705154_addedBasicValidations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011190747548_minLengthAttributeChanged.resx">
+      <DependentUpon>202011190747548_minLengthAttributeChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

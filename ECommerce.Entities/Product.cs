@@ -9,6 +9,7 @@ namespace ECommerce.Entities
 {
     public class Product:BaseEntity
     {
+        [Range(1,100000)]
         public decimal Price { get; set; }
         public int CategoryID { get; set; }
         // We are commenting this because we use it when SaveProduct which is in Product services to reduce the number of calls.

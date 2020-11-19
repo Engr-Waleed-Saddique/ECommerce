@@ -2,8 +2,11 @@
 @{
     ViewBag.Title = "ProductTable";
 }
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
-<script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+@*<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>*@
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
 <div>
     <form method="post">
         <div class="row">
@@ -54,12 +57,26 @@
         </tbody>
     </table>
     <div>
-        @if(Model.PageNo!=1)
+        @if (Model.Pager != null && Model.Pager.TotalPages > 1)
         {
-        <button class="pageButtons" data-pageNo="@(Model.PageNo-1)">Previous</button>
-        }
-        <button class="pageButtons" data-pageNo="@(Model.PageNo+1)">Next</button>
+            if (Model.Pager.CurrentPage > 1)
+            {
+                <button class="pageButtons" data-pageno="1">First</button>
+                <button class="pageButtons" data-pageno="@Model.Pager.CurrentPage-1">Previous</button>
+            }
 
+            for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                string activeClass = Model.Pager.CurrentPage == page ? "active bg-info" : string.Empty;
+                <button class="@activeClass pageButtons" data-pageno="@page">@page</button>
+            }
+
+            if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <button class="pageButtons" data-pageno="@Model.Pager.EndPage">Last</button>
+                <button class="pageButtons" data-pageno="@(Model.Pager.CurrentPage+1)">Next</button>
+            }
+        }
     </div>
 </div>
 
@@ -135,7 +152,7 @@
                 url: '@Url.Action("ProductTable", "Product")', /*'/Product/ProductTable',*/
                 data:
                 {
-                    pageNo: $(this).attr("data-pageNo")
+                    pageNo: $(this).attr("data-pageno")
 
                 }
             }).done(function (response) {

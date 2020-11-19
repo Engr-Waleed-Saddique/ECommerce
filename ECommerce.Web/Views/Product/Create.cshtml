@@ -36,6 +36,39 @@
     <button id="cancelBtn" class="btn btn-danger" type="button">Cancel</button>
 </form>
 <script>
+    //To use jquery .Validate use the jquery validate library.
+    $('#createProduct').validate({
+        rules: {
+            Name: {
+                required: true,
+                minlength: 1,
+                maxlength: 50
+          },
+            Description: {
+                maxlength: 500
+            },
+            Price:
+            {
+                required: true,
+                range:[1,100000]
+            }
+        },
+        messages:
+        {
+            Name: {
+                required: 'Name is required',
+                minlength: 'Minimum length is 1',
+                maxlength: 'Maximum length is 50'
+            },
+            Description: {
+                maxlength: 'Max length is 500'
+            },
+            Price: {
+                required: 'Price is required',
+                range:'Price must be available within 1-100000'
+            }
+        }
+    });
     $("#imageUpload").change(function () {
         var element = this;
         var formData = new FormData();
@@ -66,18 +99,30 @@
 
     });
     $("#saveBtn").click(function () {
-        $.ajax(
-            {
-                type: 'post',
-                url: '/Product/Create',
-                data: $("#createProduct").serialize()
-            }).done(function (response) {
-                $("#tableContainer").html(response);
-                $("#actionContainer").html("");
 
-            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Fail");
+        if ($("#createProduct").valid()) {
+            $.ajax(
+                {
+                    type: 'post',
+                    url: '/Product/Create',
+                    data: $("#createProduct").serialize()
+                }).done(function (response) {
+                    $("#tableContainer").html(response);
+                    $("#actionContainer").html("");
+
+                }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Fail");
+                });
+        }
+        else {
+            swal({
+                title: "Warning",
+                text: "Please enter all valid data required fields",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
             });
+        }
 
     });
     $("#cancelBtn").click(function () {
