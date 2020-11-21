@@ -168,8 +168,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Code\Enums.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -177,6 +179,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011201420306_InitialCreate.cs" />
+    <Compile Include="Migrations\202011201420306_InitialCreate.Designer.cs">
+      <DependentUpon>202011201420306_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011211552184_ColoumnsAddedToUser.cs" />
+    <Compile Include="Migrations\202011211552184_ColoumnsAddedToUser.Designer.cs">
+      <DependentUpon>202011211552184_ColoumnsAddedToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -524,6 +535,24 @@
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Shop\FilterProducts.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -547,6 +576,14 @@
       <Project>{049E1486-7792-432E-8D6C-DB9E187FAAC8}</Project>
       <Name>ECommerce.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202011201420306_InitialCreate.resx">
+      <DependentUpon>202011201420306_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011211552184_ColoumnsAddedToUser.resx">
+      <DependentUpon>202011211552184_ColoumnsAddedToUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
