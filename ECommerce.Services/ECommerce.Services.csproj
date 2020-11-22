@@ -54,6 +54,7 @@
     <Compile Include="ProductService.cs" />
     <Compile Include="CategoriesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShopService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ECommerce.Database\ECommerce.Database.csproj">

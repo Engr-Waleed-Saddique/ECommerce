@@ -1,4 +1,5 @@
-﻿using ECommerce.Services;
+﻿using ECommerce.Entities;
+using ECommerce.Services;
 using ECommerce.Web.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -13,6 +14,8 @@ namespace ECommerce.Web.Controllers
     
     public class ShopController : Controller
     {
+        #region AccountController User Manager
+        //Here we pasted the Account Controller User manager code to access the name of the user and pass it in view model of checkout.
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -39,6 +42,7 @@ namespace ECommerce.Web.Controllers
                 _userManager = value;
             }
         }
+        #endregion
 
 
 
@@ -65,7 +69,7 @@ namespace ECommerce.Web.Controllers
             CheckoutViewModel model = new CheckoutViewModel();
             var CartProductsCookie = Request.Cookies["CartProducts"];
             //Here we are checking customer buy some thing or not.If he buy something then CartProductCookie value is not null.
-            if(CartProductsCookie!=null)
+            if(CartProductsCookie!=null&&!string.IsNullOrEmpty(CartProductsCookie.Value))
             {
                 //var productIDs = CartProductsCookie.Value;
                 //var ids = productIDs.Split('-');
@@ -92,6 +96,32 @@ namespace ECommerce.Web.Controllers
             model.Pager = new Pager(totalCount, pageNo, pageSize);
             return PartialView(model);
 
+        }
+
+        public JsonResult PlaceOrder(string productIDs)
+        {
+            JsonResult result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            if (!string.IsNullOrEmpty(productIDs))
+            {
+                var productQunatities = productIDs.Split('-').Select(x => int.Parse(x)).ToList();
+                var boughtProducts = ProductService.Instance.GetProducts(productQunatities.Distinct().ToList());
+                Order newOrder = new Order();
+                newOrder.UserID = User.Identity.GetUserId();
+                newOrder.OrderedAt = DateTime.Now;
+                newOrder.Status = "Pending";
+                newOrder.TotalAmount = boughtProducts.Sum(x => x.Price * productQunatities.Where(productID => productID == x.ID).Count());
+                newOrder.OrderItems = new List<OrderItem>();
+                newOrder.OrderItems.AddRange(boughtProducts.Select(x => new OrderItem() { ProductID = x.ID, Quantity = productQunatities.Where(productID => productID == x.ID).Count() }));
+                var rowsEffected = ShopService.Instance.SaveOrder(newOrder);
+
+                result.Data = new { Success = true, Rows = rowsEffected };
+            }
+            else
+            {
+                result.Data = new { Success = false };
+            }
+            return result;
         }
     }
 }

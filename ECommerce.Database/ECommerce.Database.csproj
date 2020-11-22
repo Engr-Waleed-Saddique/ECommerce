@@ -87,6 +87,14 @@
     <Compile Include="Migrations\202011190747548_minLengthAttributeChanged.Designer.cs">
       <DependentUpon>202011190747548_minLengthAttributeChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011220320136_AddedOrderAndOrderItemTable.cs" />
+    <Compile Include="Migrations\202011220320136_AddedOrderAndOrderItemTable.Designer.cs">
+      <DependentUpon>202011220320136_AddedOrderAndOrderItemTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011221119550_AddedQuantityInOrderItem.cs" />
+    <Compile Include="Migrations\202011221119550_AddedQuantityInOrderItem.Designer.cs">
+      <DependentUpon>202011221119550_AddedQuantityInOrderItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -127,6 +135,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011190747548_minLengthAttributeChanged.resx">
       <DependentUpon>202011190747548_minLengthAttributeChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011220320136_AddedOrderAndOrderItemTable.resx">
+      <DependentUpon>202011220320136_AddedOrderAndOrderItemTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011221119550_AddedQuantityInOrderItem.resx">
+      <DependentUpon>202011221119550_AddedQuantityInOrderItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

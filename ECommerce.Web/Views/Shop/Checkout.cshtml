@@ -60,13 +60,47 @@
                     </div>
                 </div>
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                <button id="placeOrderBtn" class="btn btn-primary btn-lg btn-block" type="button">Place Order!</button>
             </form>
         </div>
     </div>
 </div>
+
+
+<script>
+    $("#placeOrderBtn").click(function () {
+        $.ajax(
+            {
+                url: '@Url.Action("PlaceOrder", "Shop")', /*'/Product/ProductTable',*/
+                data:
+                {
+                    productIDs: '@string.Join("-",Model.CartProductIDs )'
+                }
+            }).done(function (response) {
+                if (response.Success) {
+                    $.cookie('CartProducts',null, { path: '/' });
+                    updateCartProducts();
+                    swal("Done", "Your Ordered has been Placed.", "success").then((value) => {
+                        window.location = "@Url.Action("Index","Shop")";
+                    });;
+                }
+                else {
+                    swal("Failed", "Unable to place order.", "warning");
+                }
+                alert();
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+    });
+</script>
+
+
 }
 else
 {
 
 }
+
+
+
