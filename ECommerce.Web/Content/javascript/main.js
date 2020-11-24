@@ -861,7 +861,6 @@ function updateCartProducts() {
         cartProducts = existingCookieData.split('-');
     }
     else {
-        debugger;
         cartProducts = [];
     }
     $('#cartProductCount').html(cartProducts.length);

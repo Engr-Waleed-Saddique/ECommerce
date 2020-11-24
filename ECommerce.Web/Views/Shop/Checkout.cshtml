@@ -13,7 +13,7 @@
                 @foreach (var product in Model.CartProducts)
                 {
                     var productQuantity = Model.CartProductIDs.Where(productID => productID == product.ID).Count();
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed" data-id="@product.ID">
                         <div>
                             <h6 class="my-0">@i -@product.Name - QTY:@productQuantity</h6>
                             <small class="text-muted">@(product.Description.Length>100?product.Description.Substring(0,99):product.Description)</small>
@@ -99,7 +99,9 @@
 }
 else
 {
-
+      <div>
+          <h1>No Products In Cart.</h1>
+      </div>
 }
 
 
