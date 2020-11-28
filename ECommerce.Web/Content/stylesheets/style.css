@@ -2532,6 +2532,11 @@ article .more-link a:hover:after {
 	font-weight: 500;
 }
 
+
+a {
+	cursor: pointer;
+}
+
 .footer-bottom .copyright a:hover {
 	color: #f63440;
 }
