@@ -207,6 +207,7 @@
     <Content Include="Content\icon\favicon.png" />
     <Content Include="Content\images\avatar-1.png" />
     <Content Include="Content\images\avatar.png" />
+    <Content Include="Content\images\banner.jpg" />
     <Content Include="Content\images\bg-countdown-1-962x506.jpg" />
     <Content Include="Content\images\blog\1.jpg" />
     <Content Include="Content\images\blog\10.jpg" />
@@ -421,6 +422,7 @@
     <Content Include="Content\images\slider\slider-bg-7.jpg" />
     <Content Include="Content\images\slider\slider-bg-8.jpg" />
     <Content Include="Content\images\slider\slider1.jpg" />
+    <Content Include="Content\images\slider\slider2.jpg" />
     <Content Include="Content\images\System\default.jpg" />
     <Content Include="Content\images\wordpress-version.png" />
     <Content Include="Content\javascript\bootstrap.min.js" />

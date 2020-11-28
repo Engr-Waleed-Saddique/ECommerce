@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ECommerce.Web.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         //CategoriesService categoryService = new CategoriesService();

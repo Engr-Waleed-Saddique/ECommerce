@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ECommerce.Web.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         #region AccountController User Manager
@@ -79,4 +80,3 @@ namespace ECommerce.Web.Controllers
         }
     }
 }
-
